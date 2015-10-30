@@ -19,7 +19,8 @@ class Intercept {
     }
     
     public function getSpecs($printer, $material) {
-        return NULL;
+        $spec = DAOFactory::getPrintSpecDAO()->queryByIds($printer, $material);
+        return $spec;
     }
     
     public function getNotes($printer, $material) {

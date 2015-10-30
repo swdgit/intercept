@@ -57,11 +57,12 @@ class PrinterDAOImpl implements PrinterDAO{
  	 * @param PrinterDAOImpl printer
  	 */
 	public function insert($printer){
-		$sql = 'INSERT INTO printer (supplier_id, style_id, bed_x, bed_y, bed_z, product_url, discontinued, model_number, print_speed_max, print_speed_max_height, layer_max, layer_min, print_surface) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO printer (supplier_id, style_id, name, bed_x, bed_y, bed_z, product_url, discontinued, model_number, print_speed_max, print_speed_max_height, layer_max, layer_min, print_surface) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
         $sqlQuery->setNumber($printer->supplierId);
         $sqlQuery->setNumber($printer->styleId);
+        $sqlQuery->set($printer->name);
         $sqlQuery->set($printer->bedX);
         $sqlQuery->set($printer->bedY);
         $sqlQuery->set($printer->bedZ);
@@ -85,11 +86,12 @@ class PrinterDAOImpl implements PrinterDAO{
  	 * @param PrinterDAOImpl printer
  	 */
 	public function update($printer){
-		$sql = 'UPDATE printer SET supplier_id = ?, style_id = ?, bed_x = ?, bed_y = ?, bed_z = ?, product_url = ?, discontinued = ?, model_number = ?, print_speed_max = ?, print_speed_max_height = ?, layer_max = ?, layer_min = ?, print_surface = ? WHERE printer_id = ?';
+		$sql = 'UPDATE printer SET supplier_id = ?, style_id = ?, name = ?, bed_x = ?, bed_y = ?, bed_z = ?, product_url = ?, discontinued = ?, model_number = ?, print_speed_max = ?, print_speed_max_height = ?, layer_max = ?, layer_min = ?, print_surface = ? WHERE printer_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
         $sqlQuery->setNumber($printer->supplierId);
         $sqlQuery->setNumber($printer->styleId);
+        $sqlQuery->set($printer->name);
         $sqlQuery->set($printer->bedX);
         $sqlQuery->set($printer->bedY);
         $sqlQuery->set($printer->bedZ);
@@ -115,6 +117,14 @@ class PrinterDAOImpl implements PrinterDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function queryExisting($supplierId, $name) {
+	    $sql = 'SELECT * FROM printer WHERE supplier_id = ? and name = ?';
+	    $sqlQuery = new SqlQuery($sql);
+	    $sqlQuery->setNumber($supplierId);
+	    $sqlQuery->set($name);
+	    return $this->getList($sqlQuery);
+	}
+	
 	public function queryBySupplierId($value){
 		$sql = 'SELECT * FROM printer WHERE supplier_id = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -126,6 +136,13 @@ class PrinterDAOImpl implements PrinterDAO{
 		$sql = 'SELECT * FROM printer WHERE style_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByName($value){
+		$sql = 'SELECT * FROM printer WHERE name = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -221,6 +238,13 @@ class PrinterDAOImpl implements PrinterDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByName($value){
+		$sql = 'DELETE FROM printer WHERE name = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 	public function deleteByBedX($value){
 		$sql = 'DELETE FROM printer WHERE bed_x = ?';
 		$sqlQuery = new SqlQuery($sql);
@@ -311,7 +335,7 @@ class PrinterDAOImpl implements PrinterDAO{
         $printer->printerId = $row['printer_id'];
         $printer->supplierId = $row['supplier_id'];
         $printer->styleId = $row['style_id'];
-        $printer->name    = $row['name'];
+        $printer->name = $row['name'];
         $printer->bedX = $row['bed_x'];
         $printer->bedY = $row['bed_y'];
         $printer->bedZ = $row['bed_z'];

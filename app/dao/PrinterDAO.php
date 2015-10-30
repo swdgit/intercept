@@ -55,6 +55,8 @@ interface PrinterDAO{
 
     public function queryByStyleId($value);
 
+    public function queryByName($value);
+
     public function queryByBedX($value);
 
     public function queryByBedY($value);
@@ -81,6 +83,8 @@ interface PrinterDAO{
     public function deleteBySupplierId($value);
 
     public function deleteByStyleId($value);
+
+    public function deleteByName($value);
 
     public function deleteByBedX($value);
 

@@ -9,7 +9,6 @@
 		
         public $filamentId;
         public $supplierId;
-        public $categoryId;
         public $materialId;
         public $size;
         public $maxTemp;

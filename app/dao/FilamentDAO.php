@@ -53,8 +53,6 @@ interface FilamentDAO{
 
     public function queryBySupplierId($value);
 
-    public function queryByCategoryId($value);
-
     public function queryByMaterialId($value);
 
     public function queryBySize($value);
@@ -71,10 +69,7 @@ interface FilamentDAO{
 
     public function queryByDiscontinued($value);
 
-
     public function deleteBySupplierId($value);
-
-    public function deleteByCategoryId($value);
 
     public function deleteByMaterialId($value);
 

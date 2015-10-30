@@ -8,6 +8,21 @@
 <meta name="robots" content="index, follow" />
 <!-- 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />  -->
 <link rel="stylesheet" type="text/css" href="public/css/screen.css" media="screen" />
+
+<script type="text/javascript">
+function getPrintersByMaterial() {
+    
+    var e = document.getElementById("materialSelect");
+    var materialId = e.options[e.selectedIndex].value;
+
+    alert("value : " + materialId);
+}
+
+function getMaterialByPrinter() {
+    var e = document.getElementById("printerSelect");
+    var printerId = e.options[e.selectedIndex].value;
+}
+</script>
 </head>
 <?php
     $dir_iterator = new RecursiveDirectoryIterator ( "../app" );
@@ -42,25 +57,29 @@
     <div class="col1">
      <!-- Column 1 start -->
      <h2>Materials</h2>
-     <ul>
-    <?php
-        foreach ( $materials as $m ) {
-            echo '<li>' . $m->type . '</li>';
-        }
-    ?>
-                </ul>
+     <select id="materialSelect" onselect="getPrintersByMaterial();">
+       <option value=""  >Select Your Material</option>
+        <?php
+            foreach ( $materials as $m ) {
+                echo '<option value="'. $m->materialId . '">' . $m->type . '</option>';
+            }
+        ?>
+     </select>
+
      <!-- Column 1 end -->
     </div>
     <div class="col2">
      <!-- Column 2 start -->
      <h2>Printers</h2>
-     <ul>
-    <?php
-        foreach ( $printers as $p ) {
-            echo '<li>' . $p->name . '</li>';
-        }
-    ?>
-                </ul>
+     <select id="printerSelect" onselect="getMaterialByPrinter();">
+       <option value=""  >Select Your Printer</option>
+        <?php
+            foreach ( $printers as $p ) {
+                echo '<option value="'. $p->printerId . '">' . $p->name . '</option>';
+            }
+        ?>
+       </select>
+
      <!-- Column 2 end -->
     </div>
     <div class="col3">

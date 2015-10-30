@@ -29,6 +29,13 @@ class DAOFactory{
     }
 
     /**
+     * @return PrintSpecDAO
+     */
+    public static function getPrintSpecDAO(){
+        return new PrintSpecDAOImpl();
+    }
+
+    /**
      * @return PrinterDAO
      */
     public static function getPrinterDAO(){
@@ -40,6 +47,13 @@ class DAOFactory{
      */
     public static function getPrinterMaterialXrefDAO(){
         return new PrinterMaterialXrefDAOImpl();
+    }
+
+    /**
+     * @return StyleDAO
+     */
+    public static function getStyleDAO(){
+        return new StyleDAOImpl();
     }
 
     /**
