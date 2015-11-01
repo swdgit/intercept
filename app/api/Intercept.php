@@ -2,36 +2,36 @@
 
 class Intercept {
 
-    public function getPrinters() {
+    public static function getPrinters() {
         $printers = DAOFactory::getPrinterDAO()->queryAllOrderBy('supplier_id');
         
         return $printers;
     }
     
-    public function getMaterials() {
+    public static function getMaterials() {
         $materials = DAOFactory::getMaterialDAO()->queryAll();
         return $materials;
     }
 
-    public function getMatrix() {
+    public static function getMatrix() {
         $matrix = DAOFactory::getPrinterMaterialXrefDAO()->queryMatrix();
         return $matrix;
     }
     
-    public function getSpecs($printer, $material) {
+    public static function getSpecs($printer, $material) {
         $spec = DAOFactory::getPrintSpecDAO()->queryByIds($printer, $material);
         return $spec;
     }
     
-    public function getNotes($printer, $material) {
+    public static function getNotes($printer, $material) {
         return NULL;
     }
     
-    public function getMaterialReviews($material) {
+    public static function getMaterialReviews($material) {
         return NULL;
     }
     
-    public function getPrinterReviews($material) {
+    public static function getPrinterReviews($material) {
         return NULL;
     }
     

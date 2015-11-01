@@ -10,6 +10,10 @@
         public $materialId;
         public $type;
         public $description;
-		
+	    public function toString() {
+	        echo 'Material Id : '  . $this->materialId . 
+	             ' Type : '        . $this->type       . 
+	             ' Description : ' . $this->description;
+	    }
 	}
 ?>
