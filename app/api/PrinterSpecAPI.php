@@ -24,5 +24,11 @@ class PrinterSpecAPI {
         
         return $printSpec;
     }
+    
+    public static function getPrinterSpec($printerMaterialXrefId) {
+        $printerSpec = DAOFactory::getPrintSpecDAO()->load($printerMaterialXrefId);
+        
+        return $printerSpec;
+    }
 }
 ?>

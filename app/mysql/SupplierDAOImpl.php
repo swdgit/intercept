@@ -111,10 +111,20 @@ class SupplierDAOImpl implements SupplierDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	/* (non-PHPdoc) strip the name of spaces and case for compare. 
+	 * @see SupplierDAO::queryByCompanyName()
+	 */
 	public function queryByCompanyName($value){
-		$sql = 'SELECT * FROM supplier WHERE company_name = ?';
+	    
+	    // strip out all whitespace
+	    $zname_clean = preg_replace('/\s*/', '', $value);
+	    // convert the string to all lowercase
+	    $zname_clean = strtolower($zname_clean);
+	    
+	     
+		$sql = 'select * from supplier where lower(replace(company_name, " ", "")) = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->set($zname_clean);
 		return $this->getList($sqlQuery);
 	}
 

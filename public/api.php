@@ -47,11 +47,23 @@
             
             $app->post('/supplier', function() use ($app) {
                 $app->response->headers->set('Content-Type', 'application/json');
-                $app->response->setBody(json_encode(SupplierAPI::saveSupplier($app->request)->get()));
+                $app->response->setBody(json_encode(SupplierAPI::setSupplier($app->request->get())));
             });
         });
 
+        /**
+         * get specific items 
+         */
+        
+        $app->group('/get', function() use ($app) {
+    
+            $app->get('/supplier/:supplierId', function($supplierId) use ($app) {
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(SupplierAPI::getSupplier($supplierId)));
+            });
+        });
     });
+    
     
     $app->run();
 ?>
