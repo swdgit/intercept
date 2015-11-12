@@ -27,6 +27,12 @@ interface MaterialDAO{
 	public function queryAllOrderBy($orderColumn);
 	
 	/**
+	 * get only the materials that this printer can use.
+	 * @param unknown $printerId
+	 */
+	public function queryMaterialsByPrinterId($printerId);
+	
+	/**
  	 * Delete record from table
  	 * @param material primary key
  	 */

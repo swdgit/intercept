@@ -46,7 +46,9 @@
             });
             
             $app->post('/supplier', function() use ($app) {
+                echo ' add supplier ';
                 $app->response->headers->set('Content-Type', 'application/json');
+                
                 $app->response->setBody(json_encode(SupplierAPI::setSupplier($app->request->get())));
             });
         });
@@ -61,6 +63,46 @@
                 $app->response->headers->set('Content-Type', 'application/json');
                 $app->response->setBody(json_encode(SupplierAPI::getSupplier($supplierId)));
             });
+            
+            $app->get('/materials/:printerId', function($printerId) use ($app) {
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(MaterialAPI::getMaterials($printerId)));
+            });
+            
+            $app->get('/printers/:materialId', function($materialId) use ($app) {
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(PrinterAPI::getPrinters($materialId)));
+            });
+            
+            $app->get('/suppliers/:type', function($type) use($app) {
+                $suppliers = NULL;
+                $lookup    = NULL;
+                
+                $app->response->headers->set('Content-Type', 'application/json');
+
+                switch ($type) {
+                    case "PRINTER" : {
+                        $lookup = 'PRINTER';
+                        break;
+                    }
+                    case "MATERIAL" : {
+                        $lookup = 'MATERIAL';
+                        break;
+                    }
+                    default: {
+                        $lookup = NULL;
+                    }
+                }
+                
+                if ($lookup != NULL) {
+                    
+                    $suppliers = SupplierAPI::getSuppliersByType($lookup);
+                }
+                
+                $app->response->setBody(json_encode($suppliers));
+
+            });
+            
         });
     });
     

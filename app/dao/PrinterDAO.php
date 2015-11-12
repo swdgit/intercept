@@ -78,6 +78,8 @@ interface PrinterDAO{
     public function queryByLayerMin($value);
 
     public function queryByPrintSurface($value);
+    
+    public function queryPrintersByMaterial($materialId);
 
 
     public function deleteBySupplierId($value);

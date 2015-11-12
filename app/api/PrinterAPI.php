@@ -37,4 +37,9 @@ class PrinterAPI {
         
         return $printer;
     }
+    
+    public static function getPrinters($materialId) {
+        return DAOFactory::getPrinterDAO()->queryPrintersByMaterial($materialId);
+    }
 }
+?>

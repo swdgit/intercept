@@ -57,9 +57,11 @@ class SupplierDAOImpl implements SupplierDAO{
  	 * @param SupplierDAOImpl supplier
  	 */
 	public function insert($supplier){
-		$sql = 'INSERT INTO supplier (company_name, contact_name, contact_title, address, city, region, postal_code, country, phone, fax, homepage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	    echo 'in insert '; 
+		$sql = 'INSERT INTO supplier (type, company_name, contact_name, contact_title, address, city, region, postal_code, country, phone, fax, homepage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
+        $sqlQuery->set($supplier->type);
         $sqlQuery->set($supplier->companyName);
         $sqlQuery->set($supplier->contactName);
         $sqlQuery->set($supplier->contactTitle);
@@ -72,6 +74,8 @@ class SupplierDAOImpl implements SupplierDAO{
         $sqlQuery->set($supplier->fax);
         $sqlQuery->set($supplier->homepage);
 
+        echo ' sql query ' . $sqlQuery->getQuery();
+        
 		$id = $this->executeInsert($sqlQuery);	
 		$supplier->supplierId = $id;
 		return $id;
@@ -83,10 +87,11 @@ class SupplierDAOImpl implements SupplierDAO{
  	 * @param SupplierDAOImpl supplier
  	 */
 	public function update($supplier){
-		$sql = 'UPDATE supplier SET company_name = ?, contact_name = ?, contact_title = ?, address = ?, city = ?, region = ?, postal_code = ?, country = ?, phone = ?, fax = ?, homepage = ? WHERE supplier_id = ?';
+	    echo 'in update ';
+		$sql = 'UPDATE supplier SET type = ? company_name = ?, contact_name = ?, contact_title = ?, address = ?, city = ?, region = ?, postal_code = ?, country = ?, phone = ?, fax = ?, homepage = ? WHERE supplier_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-        $sqlQuery->set($supplier->companyName);
+        $sqlQuery->set($supplier->type);
         $sqlQuery->set($supplier->contactName);
         $sqlQuery->set($supplier->contactTitle);
         $sqlQuery->set($supplier->address);
@@ -126,6 +131,19 @@ class SupplierDAOImpl implements SupplierDAO{
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($zname_clean);
 		return $this->getList($sqlQuery);
+	}
+	
+	/**
+	 * pull back a list of suppliers based on the type. e.g. PRINTER, MATERIAL
+	 * @param unknown $type
+	 * @return multitype:SupplierDAOImpl
+	 */
+	public function queryByType($type) {
+	    echo 'type : ' . $type;
+	    $sql = 'select * from supplier where type = ? ';
+	    $sqlQuery = new SqlQuery($sql);
+	    $sqlQuery->set($type);
+	    return $this->getList($sqlQuery);
 	}
 
 	public function queryByContactName($value){
@@ -286,18 +304,19 @@ class SupplierDAOImpl implements SupplierDAO{
 	protected function readRow($row){
 		$supplier = new Supplier();
 		
-        $supplier->supplierId = $row['supplier_id'];
-        $supplier->companyName = $row['company_name'];
-        $supplier->contactName = $row['contact_name'];
+        $supplier->supplierId   = $row['supplier_id'];
+        $supplier->type         = $row['type'];
+        $supplier->companyName  = $row['company_name'];
+        $supplier->contactName  = $row['contact_name'];
         $supplier->contactTitle = $row['contact_title'];
-        $supplier->address = $row['address'];
-        $supplier->city = $row['city'];
-        $supplier->region = $row['region'];
-        $supplier->postalCode = $row['postal_code'];
-        $supplier->country = $row['country'];
-        $supplier->phone = $row['phone'];
-        $supplier->fax = $row['fax'];
-        $supplier->homepage = $row['homepage'];
+        $supplier->address      = $row['address'];
+        $supplier->city         = $row['city'];
+        $supplier->region       = $row['region'];
+        $supplier->postalCode   = $row['postal_code'];
+        $supplier->country      = $row['country'];
+        $supplier->phone        = $row['phone'];
+        $supplier->fax          = $row['fax'];
+        $supplier->homepage     = $row['homepage'];
 
 		return $supplier;
 	}
@@ -336,7 +355,8 @@ class SupplierDAOImpl implements SupplierDAO{
 	 * Execute sql query
 	 */
 	protected function executeUpdate($sqlQuery){
-		return QueryExecutor::executeUpdate($sqlQuery);
+	    echo 'upd : ' . $sqlQuery;
+	    return QueryExecutor::executeUpdate($sqlQuery);
 	}
 
 	/**
@@ -350,6 +370,7 @@ class SupplierDAOImpl implements SupplierDAO{
 	 * Insert row to table
 	 */
 	protected function executeInsert($sqlQuery){
+	    echo 'ins : ' . $sqlQuery;
 		return QueryExecutor::executeInsert($sqlQuery);
 	}
 }

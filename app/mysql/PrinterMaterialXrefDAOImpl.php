@@ -40,6 +40,10 @@ class PrinterMaterialXrefDAOImpl implements PrinterMaterialXrefDAO{
 		return $this->getList($sqlQuery);
 	}
 	
+	/** 
+	 * xref data of printer, material and supplier... todo why did I need this one again or was it testing.....
+	 * @see PrinterMaterialXrefDAO::queryMatrix()
+	 */
 	public function queryMatrix() {
 
 	   $sql = 'select pmx.printer_id, pmx.material_id, s.supplier_id, s.company_name, p.name, m.type '.

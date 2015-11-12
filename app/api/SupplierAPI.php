@@ -9,8 +9,12 @@ class SupplierAPI {
      * @return unknown
      */
     public static function setSupplier($params) {
+
+        echo 'total params ' . count($params) . ' param : ' . $params[0];
+        
         $supplier = new Supplier();
         $supplier->companyName     = $params['companyName'];
+        $supplier->type            = $params['type'];
         $supplier->contactName     = $params['contactName'];
         $supplier->contactTitle    = $params['contactTitle'];
         $supplier->address         = $params['address'];
@@ -22,15 +26,16 @@ class SupplierAPI {
         $supplier->phone           = Util::formatPhone($params['phone']);
         $supplier->fax             = Util::formatPhone($params['fax']);
         
-        
         // new supplier in this case
         if ($params['supplierId'] == -1 || $params['supplierId'] == NULL) {
-            // todo -- select off of company name by removing all spaces and reducing to lowercase for compare. 
-               
+            // check for existing first. 
             $existing = DAOFactory::getSupplierDAO()->queryByCompanyName($params['companyName']);
+
             if ($existing == NULL) {
+
                 $supplier->supplierId = DAOFactory::getSupplierDAO()->insert($supplier);
             } else {
+                // need to update
                 if (is_array($existing)) {
                     $supplier = $existing[0];
                 }
@@ -43,7 +48,6 @@ class SupplierAPI {
             DAOFactory::getSupplierDAO()->update($supplier);
         }
         
-        
         return $supplier;
     }
     
@@ -51,6 +55,11 @@ class SupplierAPI {
         $supplier = DAOFactory::getSupplierDAO()->load($supplierId);
         
         return $supplier;        
+    }
+    
+    public static function getSuppliersByType($lookup) {
+        $suppliers = DAOFactory::getSupplierDAO()->queryByType($lookup); 
+        return $suppliers;
     }
 }
 ?>

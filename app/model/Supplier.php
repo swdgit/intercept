@@ -7,8 +7,10 @@
 	 */
 	class Supplier{
 		
-        public $supplierId;
-        public $companyName;
+        public $supplierId = -1;
+
+        public $type;
+                public $companyName;
         public $contactName;
         public $contactTitle;
         public $address;

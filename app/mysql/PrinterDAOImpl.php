@@ -41,6 +41,17 @@ class PrinterDAOImpl implements PrinterDAO{
 	}
 	
 	/**
+	 * get printers as idenfited by a material type
+	 */
+	public function queryPrintersByMaterial($materialId) {
+	    $sql = 'SELECT p.* FROM printer_material_xref pmx inner join printer p on pmx.printer_id = p.printer_id WHERE pmx.material_id = ?';
+	    $sqlQuery = new SqlQuery($sql);
+	    $sqlQuery->setNumber($materialId);
+	    
+	    return $this->getList($sqlQuery);
+	}
+	
+	/**
  	 * Delete record from table
  	 * @param printer primary key
  	 */

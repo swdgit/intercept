@@ -107,7 +107,14 @@ class MaterialDAOImpl implements MaterialDAO{
 		return $this->getList($sqlQuery);
 	}
 
-
+	public function queryMaterialsByPrinterId($printerId) {
+	    $sql = 'SELECT m.* FROM printer_material_xref pmx inner join material m on pmx.material_id = m.material_id WHERE pmx.printer_id = ?';
+	    $sqlQuery = new SqlQuery($sql);
+	    $sqlQuery->setNumber($printerId);
+	     
+	    return $this->getList($sqlQuery);
+	}
+	
 	public function deleteByType($value){
 		$sql = 'DELETE FROM material WHERE type = ?';
 		$sqlQuery = new SqlQuery($sql);

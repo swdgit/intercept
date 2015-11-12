@@ -51,6 +51,8 @@ interface SupplierDAO{
 	 */
 	public function clean();
 
+	public function queryByType($type);
+	
     public function queryByCompanyName($value);
 
     public function queryByContactName($value);
