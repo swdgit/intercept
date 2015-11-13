@@ -46,9 +46,7 @@
             });
             
             $app->post('/supplier', function() use ($app) {
-                echo ' add supplier ';
                 $app->response->headers->set('Content-Type', 'application/json');
-                
                 $app->response->setBody(json_encode(SupplierAPI::setSupplier($app->request->get())));
             });
         });
