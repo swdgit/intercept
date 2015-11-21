@@ -54,6 +54,12 @@ interface FilamentDAO{
     public function queryBySupplierId($value);
 
     public function queryByMaterialId($value);
+    
+    public function queryByKeys($name, $type, $color, $diameter);
+    
+    public function queryByName($value);
+    
+    public function queryByColor($value);
 
     public function queryBySize($value);
 

@@ -18,7 +18,12 @@
             $app->response->headers->set('Content-Type', 'application/json');
             $app->response->setBody(json_encode(Intercept::getMaterials()));
         });
-    
+        
+        $app->get('/filament', function() use($app) {
+            $app->response->headers->set('Content-Type', 'application/json');
+            $app->response->setBody(json_encode(Intercept::getFilament()));
+        });
+        
         $app->get('/spec/:printerId/:materialId', function($printerId, $materialId) {
             $app->response->headers->set('Content-Type', 'application/json');
             $app->response->setBody(json_encode(Intercept::getSpecs($printerId, $materialId)));

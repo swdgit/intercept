@@ -8,6 +8,17 @@ class Util {
         }
         return $number;
     }
+    
+    /** when we get a value with mm in it we just need to strip that out.
+     * @param unknown $value
+     */
+    public static function getMilliMeters($value) {
+        
+        $mm = 0.0;
+        $mm = trim($value, "m");
+        return $mm;
+    }
+    
 }
 
 ?>

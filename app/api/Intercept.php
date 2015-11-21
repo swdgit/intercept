@@ -23,6 +23,11 @@ class Intercept {
         return $spec;
     }
     
+    public static function getFilament  () {
+        $filament = DAOFactory::getFilamentDAO()->queryAll();
+        return $filament;
+    }
+    
     public static function getNotes($printer, $material) {
         return NULL;
     }

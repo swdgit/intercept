@@ -57,11 +57,13 @@ class FilamentDAOImpl implements FilamentDAO{
  	 * @param FilamentDAOImpl filament
  	 */
 	public function insert($filament){
-		$sql = 'INSERT INTO filament (supplier_id, material_id, size, max_temp, min_temp, description, weight, product_url, discontinued) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO filament (supplier_id, material_id, name, color, size, max_temp, min_temp, description, weight, product_url, discontinued) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
         $sqlQuery->setNumber($filament->supplierId);
         $sqlQuery->setNumber($filament->materialId);
+        $sqlQuery->set($filament->name);
+        $sqlQuery->set($filament->color);
         $sqlQuery->set($filament->size);
         $sqlQuery->setNumber($filament->maxTemp);
         $sqlQuery->setNumber($filament->minTemp);
@@ -81,11 +83,13 @@ class FilamentDAOImpl implements FilamentDAO{
  	 * @param FilamentDAOImpl filament
  	 */
 	public function update($filament){
-		$sql = 'UPDATE filament SET supplier_id = ?, material_id = ?, size = ?, max_temp = ?, min_temp = ?, description = ?, weight = ?, product_url = ?, discontinued = ? WHERE filament_id = ?';
+		$sql = 'UPDATE filament SET supplier_id = ?, material_id = ?, name = ?, color = ?, size = ?, max_temp = ?, min_temp = ?, description = ?, weight = ?, product_url = ?, discontinued = ? WHERE filament_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
         $sqlQuery->setNumber($filament->supplierId);
         $sqlQuery->setNumber($filament->materialId);
+        $sqlQuery->set($filament->name);
+        $sqlQuery->set($filament->color);
         $sqlQuery->set($filament->size);
         $sqlQuery->setNumber($filament->maxTemp);
         $sqlQuery->setNumber($filament->minTemp);
@@ -120,8 +124,39 @@ class FilamentDAOImpl implements FilamentDAO{
 		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
+	
+    public function queryByKeys($name, 
+                                $type, 
+                                $color, 
+                                $diameter) {
 
-	public function queryBySize($value){
+        $material = DAOFactory::getMaterialDAO()->queryByType($type);
+        
+        $sql = 'select * from filament where name = ? and material_id = ? and color = ? and size = ?';
+        $sqlQuery = new SqlQuery($sql);
+        $sqlQuery->set($name);
+        $sqlQuery->setNumber($material->materialId);
+        $sqlQuery->set($color);
+        $sqlQuery->setNumber($diameter);
+        
+        return $this->getList($sqlQuery);        
+    }
+
+    public function queryByName($value) {
+        $sql = 'select * from filament where name = ?';
+        $sqlQuery = new SqlQuery($sql);
+        $sqlQuery->set($value);
+        return $this->getList($sqlQuery);
+    }
+    
+    public function queryByColor($value) {
+        $sql = 'select * from filament where color = ?';
+        $sqlQuery = new SqlQuery($sql);
+        $sqlQuery->set($value);
+        return $this->getList($sqlQuery);
+    }
+    
+    public function queryBySize($value){
 		$sql = 'SELECT * FROM filament WHERE size = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
@@ -247,6 +282,8 @@ class FilamentDAOImpl implements FilamentDAO{
         $filament->filamentId = $row['filament_id'];
         $filament->supplierId = $row['supplier_id'];
         $filament->materialId = $row['material_id'];
+        $filament->name       = $row['name'];
+        $filament->color      = $row['color'];
         $filament->size = $row['size'];
         $filament->maxTemp = $row['max_temp'];
         $filament->minTemp = $row['min_temp'];

@@ -10,6 +10,10 @@
         public $filamentId;
         public $supplierId;
         public $materialId;
+        
+        public $name;
+        
+        public $color;
         public $size;
         public $maxTemp;
         public $minTemp;

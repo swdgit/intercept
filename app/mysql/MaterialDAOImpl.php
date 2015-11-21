@@ -93,11 +93,12 @@ class MaterialDAOImpl implements MaterialDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
-	public function queryByType($value){
+	public function queryByType($value) {
 		$sql = 'SELECT * FROM material WHERE type = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
-		return $this->getList($sqlQuery);
+		
+		return $this->getRow($sqlQuery);
 	}
 
 	public function queryByDescription($value){
