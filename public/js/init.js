@@ -14,6 +14,7 @@ function initPage() {
     $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
         var items = [];
         $.each( data, function( key, val ) {
+            alert(key);
           items.push( "<li id='" + key + "'>" + val + "</li>" );
         });
        
