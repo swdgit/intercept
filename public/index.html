@@ -10,9 +10,10 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/image_slide.js"></script>
+  <script type="text/javascript" src="js/init.js"></script>
 </head>
 
-<body>
+<body onload="initPage();">
   <div id="main">
     <div id="header">
 	  <div id="banner">
@@ -50,7 +51,7 @@
 	  <div class="container">
 	    <div class="ourwork"> <!-- printer list -->
 	      <h3>Printers</h3>
-		  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus tempor enim.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus tempor enim.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus tempor enim.</p>
+		  <p class="printers"></p>
 		  <div class="more">
 		    <a href="#">Add a Printer</a>
 		  </div><!--close more-->      
@@ -64,7 +65,7 @@
 	    </div><!--close testimonials-->	  
 	    <div class="projects"><!-- materials list -->
 	      <h3>Materials</h3>
-		  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus tempor enim.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus tempor enim.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus tempor enim.</p>	  
+		  <p class="materials"></p>	  
 		  <div class="more">
 		    <a href="#">Add a Material</a>
 		  </div><!--close more-->        
