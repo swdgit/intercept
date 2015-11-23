@@ -12,9 +12,8 @@ function initPage() {
     //set the list, just the names, and the types to the 2 different list windows.
     
     $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
-        alert(data);
         var items = [];
-        $.each( data, function( key, val ) {
+        $.each( data[0], function( key, val ) {
           items.push( "<li id='" + key + "'>" + val + "</li>" );
         });
        
@@ -26,7 +25,7 @@ function initPage() {
     
     $.getJSON("api/get/suppliers/MATERIAL", function(data) {
         var items = [];
-        $.each( data, function( key, val ) {
+        $.each( data[0], function( key, val ) {
           items.push( "<li id='" + key + "'>" + val + "</li>" );
         });
        
