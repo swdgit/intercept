@@ -1,6 +1,6 @@
 <?php
-    require '../vendor/autoload.php';
-    require '../app/autoload.php';
+    require 'vendor/autoload.php';
+    require 'app/autoload.php';
 
     $app = new \Slim\Slim();
 
@@ -103,7 +103,6 @@
                 }
                 
                 $app->response->headers->set('Content-Type', 'application/json');
-                echo(json_encode($suppliers));
                 $app->response->setBody(json_encode($suppliers));
 
             });

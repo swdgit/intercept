@@ -137,7 +137,6 @@ class SupplierDAOImpl implements SupplierDAO{
 	 * @return multitype:SupplierDAOImpl
 	 */
 	public function queryByType($type) {
-	    echo 'type : ' . $type;
 	    $sql = 'select * from supplier where type = ? ';
 	    $sqlQuery = new SqlQuery($sql);
 	    $sqlQuery->set($type);

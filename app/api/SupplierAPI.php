@@ -10,8 +10,6 @@ class SupplierAPI {
      */
     public static function setSupplier($params) {
 
-        echo 'total params ' . count($params) . ' param : ' . $params[0];
-        
         $supplier = new Supplier();
         $supplier->companyName     = $params['companyName'];
         $supplier->type            = $params['type'];
