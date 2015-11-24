@@ -11,7 +11,7 @@ function initPage() {
     
     //set the list, just the names, and the types to the 2 different list windows.
     
-    $.getJSON( "http://intercept.localhost.com/api/get/suppliers/PRINTER", function( resp ) {
+    $.get( "http://intercept.localhost.com/api/get/suppliers/PRINTER", function( resp ) {
         console.log( resp ); // server response
     });
     
