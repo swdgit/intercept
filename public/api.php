@@ -102,7 +102,7 @@
                     $suppliers = SupplierAPI::getSuppliersByType($lookup);
                 }
                 
-//                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->headers->set('Content-Type', 'application/json');
                 $app->response->setBody(json_encode($suppliers));
 
             });

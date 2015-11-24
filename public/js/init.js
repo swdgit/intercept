@@ -11,18 +11,18 @@ function initPage() {
     
     //set the list, just the names, and the types to the 2 different list windows.
     
-    $.get( "http://intercept.localhost.com/api/get/suppliers/PRINTER", function( resp ) {
+    $.get('http://intercept.localhost.com/api/get/suppliers/PRINTER', function( resp ) {
         console.log( resp ); // server response
     });
     
     
-    $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
+    $.getJSON( 'api/get/suppliers/PRINTER', function( data ) {
         $.each( data, function( key, val ) {
             $("#printers").append("<li>" +  val.companyName +  "</li>");
         });
       });
     
-    $.getJSON("api/get/suppliers/MATERIAL", function(data) {
+    $.getJSON('api/get/suppliers/MATERIAL', function(data) {
         $.each( data[0], function( key, val ) {
             $("#printers").append("<li>" +  val.companyName +  "</li>");
         });
