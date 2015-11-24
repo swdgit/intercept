@@ -36,5 +36,9 @@ function initPage() {
             $("#printers").append("<li>" +  val.companyName +  "</li>");
         });
                
+    })
+    .error(function(jqXHR, textStatus, errorThrown) {
+        console.log("error " + textStatus);
+        console.log("incoming Text " + jqXHR.responseText);
     });
 }
