@@ -174,7 +174,7 @@ ul#menu li:hover a
 
   
 .ourwork
-{ width: 242px;
+{ width: 20%;
   float: left;
   padding: 20px;
   background: #FEFFCF;
@@ -188,7 +188,7 @@ ul#menu li:hover a
   text-shadow: 1px 1px #FFF;}  
   
 .testimonials
-{ width: 243px;
+{ width: 25%;
   margin-left: 26px;  
   float: left;
   padding: 20px;
@@ -203,7 +203,7 @@ ul#menu li:hover a
   text-shadow: 1px 1px #FFF;}  
   
 .projects
-{ width: 243px;
+{ width: 35%;
   margin-left: 26px;
   float: left;
   padding: 20px;
