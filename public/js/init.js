@@ -11,7 +11,7 @@ function initPage() {
     
     //set the list, just the names, and the types to the 2 different list windows.
     
-    $.get( "/api/get/suppliers/PRINTER", function( resp ) {
+    $.getJSON( "api/get/suppliers/PRINTER", function( resp ) {
         console.log( resp ); // server response
     });
     
