@@ -13,7 +13,7 @@ function initPage() {
     
     $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
         $.each( data, function( key, val ) {
-            $("#materials").append("<li>" +  data[key].companyName +  "</li>");
+            $("#materials").append("<li>" +  val.companyName +  "</li>");
         });
       });
     
