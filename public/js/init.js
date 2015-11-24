@@ -13,20 +13,14 @@ function initPage() {
     
     $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
         $.each( data, function( key, val ) {
-            $("#materials").append("<li>" +  val.companyName +  "</li>");
+            $("#printers").append("<li>" +  val.companyName +  "</li>");
         });
       });
     
     $.getJSON("api/get/suppliers/MATERIAL", function(data) {
-        var items = [];
         $.each( data[0], function( key, val ) {
-          items.push( "<li id='" + key + "'>" + val + "</li>" );
+            $("#printers").append("<li>" +  val.companyName +  "</li>");
         });
-       
-        $( "<ul/>", {
-          "class": "materials",
-          html: items.join( "" )
-        }).appendTo( "materialList" );
-        
+               
     });
 }
