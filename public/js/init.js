@@ -20,7 +20,7 @@ function initPage() {
 
     $.getJSON('api/get/suppliers/MATERIAL', function(data) {
         $.each(data[0], function(key, val) {
-            $("#printers").append("<li>" + val.companyName + "</li>");
+            $("#materials").append("<li>" + val.companyName + "</li>");
         });
 
     }).error(function(jqXHR, textStatus, errorThrown) {
