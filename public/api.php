@@ -1,6 +1,6 @@
 <?php
-    require 'vendor/autoload.php';
-    require 'app/autoload.php';
+    require '../vendor/autoload.php';
+    require '../app/autoload.php';
 
     $app = new \Slim\Slim();
 
