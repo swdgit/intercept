@@ -20,7 +20,7 @@ function initPage() {
 
     $.getJSON('api/filament', function(data) {
         $.each(data, function(key, val) {
-            $("#filament").append("<li id=" + val.filamentId + ">" + val.companyName + "</li>");
+            $("#filament").append("<li id=" + val.filamentId + ">" + val.name + "</li>");
         });
 
     }).error(function(jqXHR, textStatus, errorThrown) {
