@@ -9,18 +9,18 @@ function initPage() {
     // get the materials
 
     // set the list, just the names, and the types to the 2 different list windows.
-    $.getJSON('api/get/suppliers/PRINTER', function(data) {
+    $.getJSON('api/printers', function(data) {
         $.each(data, function(key, val) {
-            $("#printers").append("<li>" + val.companyName + "</li>");
+            $("#printers").append("<li id=" + val.printerId + ">" + val.name + "</li>");
         });
     }).error(function(jqXHR, textStatus, errorThrown) {
         console.log("error " + textStatus);
         console.log("incoming Text " + jqXHR.responseText);
     });
 
-    $.getJSON('api/get/suppliers/MATERIAL', function(data) {
+    $.getJSON('api/filament', function(data) {
         $.each(data, function(key, val) {
-            $("#materials").append("<li>" + val.companyName + "</li>");
+            $("#filament").append("<li id=" + val.filamentId + ">" + val.companyName + "</li>");
         });
 
     }).error(function(jqXHR, textStatus, errorThrown) {
