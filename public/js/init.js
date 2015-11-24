@@ -10,6 +10,15 @@ function initPage() {
     // get the materials
     
     //set the list, just the names, and the types to the 2 different list windows.
+    function foo() {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('GET', "http://intercept.localhost.com/api/get/suppliers/PRINTER");
+        httpRequest.send();
+        return httpRequest.responseText;
+    }
+
+    var result = foo(); // always ends up being 'undefined'
+    
     
     $.get('http://intercept.localhost.com/api/get/suppliers/PRINTER', function( resp ) {
         console.log( resp ); // server response
