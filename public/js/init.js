@@ -11,6 +11,16 @@ function initPage() {
     
     //set the list, just the names, and the types to the 2 different list windows.
     
+    $.ajax({
+        url: 'api/get/suppliers/PRINTER',
+      })
+      .done(function(data) {
+        alert(data)
+      })
+      .fail(function() {
+        alert("Ajax failed to fetch data")
+      })
+    
     $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
         $.each( data, function( key, val ) {
             $("#printers").append("<li>" +  val.companyName +  "</li>");
