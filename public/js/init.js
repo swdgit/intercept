@@ -14,13 +14,8 @@ function initPage() {
     $.getJSON( "api/get/suppliers/PRINTER", function( data ) {
         var items = [];
         $.each( data[0], function( key, val ) {
-          items.push( "<li id='" + key + "'>" + val + "</li>" );
+            $("#materials").append($("<li>").text(val));
         });
-       
-        $( "<ul/>", {
-          "class": "printers",
-          html: items.join( "" )
-        }).appendTo( "printerList" );
       });
     
     $.getJSON("api/get/suppliers/MATERIAL", function(data) {
