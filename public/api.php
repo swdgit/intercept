@@ -77,6 +77,11 @@
                 $app->response->setBody(json_encode(PrinterAPI::getPrinters($materialId)));
             });
             
+            $app->get('', function($filamentId) use($app) {
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(FilamentAPI::getFilaments($printerId)));
+            });
+            
             $app->get('/suppliers/:type', function($type) use($app) {
                 $suppliers = NULL;
                 $lookup    = NULL;

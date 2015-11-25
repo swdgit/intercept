@@ -50,6 +50,8 @@ interface FilamentDAO{
 	 * Delete all rows
 	 */
 	public function clean();
+	
+	public function queryFilamentsByPrinterId($printerId);
 
     public function queryBySupplierId($value);
 
