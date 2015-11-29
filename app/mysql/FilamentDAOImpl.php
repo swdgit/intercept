@@ -110,7 +110,14 @@ class FilamentDAOImpl implements FilamentDAO{
 		$sqlQuery = new SqlQuery($sql);
 		return $this->executeUpdate($sqlQuery);
 	}
+	
+	public function queryFilamentsByPrinterId($printerId) {
+	    $sql = 'SELECT * FROM filament WHERE supplier_id = ?';
+	    $sqlQuery = new SqlQuery($sql);
+	    $sqlQuery->setNumber($value);
+	    return $this->getList($sqlQuery);
 
+	}
 	public function queryBySupplierId($value){
 		$sql = 'SELECT * FROM filament WHERE supplier_id = ?';
 		$sqlQuery = new SqlQuery($sql);

@@ -1,5 +1,5 @@
 <?php
-class MaterialAPI {
+class FilamentAPI {
     
     /**
      * save or update a material

@@ -44,6 +44,11 @@
                 $app->response->setBody(json_encode(MaterialAPI::setMaterial($app->request->get())));
             });
     
+            $app->post('/pmxref', function() use ($app) {
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(PrinterMaterialXrefAPI::setPrinterSpec($app->request->get())));
+            });
+    
             $app->post('/spec', function() use ($app) {
                 // pass in all of the request parameters             
                 $app->response->headers->set('Content-Type', 'application/json');
@@ -77,11 +82,17 @@
                 $app->response->setBody(json_encode(PrinterAPI::getPrinters($materialId)));
             });
             
-            $app->get('', function($filamentId) use($app) {
+            $app->get('/filament/:printerId', function($printerId) use($app) {
                 $app->response->headers->set('Content-Type', 'application/json');
                 $app->response->setBody(json_encode(FilamentAPI::getFilaments($printerId)));
             });
             
+            $app->get('/printer/:filamentId', function($filamentId) use($app) {
+                $app->response->headers->set('Content-Type', 'application/json');
+                $app->response->setBody(json_encode(PrinterAPI::getPrinters($materialId)));
+            });
+                
+                
             $app->get('/suppliers/:type', function($type) use($app) {
                 $suppliers = NULL;
                 $lookup    = NULL;

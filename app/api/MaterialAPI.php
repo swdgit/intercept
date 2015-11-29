@@ -32,3 +32,4 @@ class MaterialAPI {
         return $materials;
     }
 }
+?>
