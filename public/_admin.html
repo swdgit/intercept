@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  
+<script type="text/javascript">
+   function submitPrinterXrefForm() {
+       
+       var selectedPrinter   = [];
+       
+       $('#printers input:checked').each(function() {
+           selectedPrinter.push($(this).attr('name'));
+       });
+       
+       var selectedMaterials = [];
+       $('#filament input:checked').each(function() {
+           selectedMaterials.push($(this).attr('name'));
+       });
+       
+//       $.post( 'api/add/pmxref', "{"+"""printerIds"""+":[" + selectedPrinter + "], " + """materialIds""" + ":[" + selectedMaterials +"]}", function(data) {
+         $.post( 'api/add/pmxref', "printerIds=" + selectedPrinter + "&" + "materialIds=" + selectedMaterials, function(data) {
+           //... do something with response from server
+         },
+         'json' // I expect a JSON response
+      );
+   }
+</script>
+  <script type="text/javascript" src="js/init.js"></script>
+
+</head>
+<body onload="initPage();">
+    <div id="site_content" class="form_settings">     
+
+
+  <form id="xrefForm" >
+        <div class="container">
+          <div class="ourwork"> <!-- printer list .. need to make this and materials a scrollable area with max length of say 10 each. -->
+            <h3>Printers</h3>
+            <ul class="matchLists" id="printers">
+            </ul>
+            <div class="more">
+              <a href="#" title="Add a new Printer if yours is not found." >Add a Printer</a>
+            </div><!--close more-->      
+          </div><!--close ourwork-->
+          <div class="projects"><!-- materials list -->
+            <h3>Materials</h3>
+            <ul class="matchLists" id="filament">
+            </ul>   
+            <div class="more">
+              <a href="#" title="Add a new Filament if yours is not found." >Add a Filament</a>
+            </div><!--close more-->        
+          </div><!--close projects-->
+        <input class="submit" type='button' value='Add Reference' onClick='submitPrinterXrefForm()' />
+        </div><!--close container-->
+    
+  </form>
+</div>
+</body>
+</html>

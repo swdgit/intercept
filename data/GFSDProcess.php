@@ -51,18 +51,17 @@ class GFSDProcess {
             $header   = array();
             
             while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
-                if ($row == 1) {
-                    $colTotal = count($data);
-                    echo "<p> $colTotal fields in line $row: <br /></p>\n";
-                    for ($c=0; $c < $colTotal; $c++) {
-                        $header = $data;
-                    }
-                } else {
+
+                // skipping the header
+                if ($row != 1) { 
                     $this->addFilament($data);
                     $this->addSupplier($data);
+                    $this->addPrinterMaterialXref($data);
                 }
+                
                 $row++;
             }
+            
             fclose($handle);
         }
     }
@@ -111,7 +110,7 @@ class GFSDProcess {
            // if not then add it.
            // if so then update it.   
         $material = new Material();
-        $existing = DAOFactory::getMaterialDAO()->queryByType($data[self::FILAMENT_TYPE]) ;
+        $existing = DAOFactory::getMaterialDAO()->queryByType($data[self::FILAMENT_TYPE]);
         
         echo ' material ' . $material->type . ' id ' . $material->materialId . ' data : ' . $data[self::FILAMENT_TYPE];
         
@@ -123,6 +122,89 @@ class GFSDProcess {
         }
         return $material;
     }
+    
+    /**
+     * 19        Upgraded DaVinci 1.0                            -- XYZPrinting 20, 20, 20   ABS  .4mm   1.75mm
+     * 20        Mini Kossel with 1.75mm E3D V6 (Bowden)         -- DIY         17,  0, 24 (zero indicates diameter of build area) 
+     * 21        Printrbot Metal Plus 1.75mm                     -- PrintrBot   25, 25, 25        .4mm   1.75mm    
+     * 22        Prusa I3 Rework with 3mm E3D V5 (Geared Direct) -- PrusaPrinters 20, 20, 20      1.75mm http://prusaprinters.org/ 
+     * @param unknown $data
+     */
+    function addPrinterMaterialXref($data) {
+        $xref = new PrinterMaterialXref();
+        
+        echo ' printer ' . $printer->name;
+        $material = DAOFactory::getMaterialDAO()->queryByType($data[self::FILAMENT_TYPE]);
+        $printers  = DAOFactory::getPrinterDAO()->queryByName($data[self::PRINTER_USED_FOR_TEST]);
+        $existing = DAOFactory::getPrinterMaterialXrefDAO()->queryByIds($material->materialId, $printer->printerId);
+        
+        $printer;
+                
+        if ($printers == NULL) {
+            $printer = $this->addPrinter($data);
+        } else {
+            $printer = $printers[0];
+        }
+        
+        // assign material
+        // assign printer      
+        // add it to the xref 
+        if ($existing == NULL) {
+            $printerMaterialXref = new PrinterMaterialXref();
+            
+            $printerMaterialXref->printerId  = $printer->printerId;
+            $printerMaterialXref->materialId = $material->materialId;
+            $printerMaterialXref = DAOFactory::getPrinterMaterialXrefDAO()->insert($printerMaterialXref);
+        } 
+    }
+    
+    /**
+     * 19        Upgraded DaVinci 1.0                            -- XYZPrinting 20, 20, 20   ABS  .4mm   1.75mm
+     * 20        Mini Kossel with 1.75mm E3D V6 (Bowden)         -- DIY         17,  0, 24 (zero indicates diameter of build area) 
+     * 21        Printrbot Metal Plus 1.75mm                     -- PrintrBot   25, 25, 25        .4mm   1.75mm    
+     * 22        Prusa I3 Rework with 3mm E3D V5 (Geared Direct) -- PrusaPrinters 20, 20, 20      1.75mm http://prusaprinters.org/ 
+     * @param unknown $data
+     */
+    function addPrinter($data) {
+        $printer = new Printer();
+        switch($data[self::PRINTER_USED_FOR_TEST]) {
+            case "Upgraded DaVinci 1.0" : 
+                $printer->supplierId = 19;
+                $printer->bedX = 20;
+                $printer->bedY = 20;
+                $printer->bedZ = 20;
+                $printer->nozzleSize = 0.4;
+                $printer->filamentSize = 1.75;
+                
+                break;
+            case "Printrbot Metal Plus 1.75mm" :
+                $printer->bedX = 25;
+                $printer->bedY = 25;
+                $printer->bedZ = 25;
+                $printer->nozzleSize = 0.4;
+                $printer->filamentSize = 1.75;
+                $printer->supplierId = 21;
+                break;
+            case "Prusa I3 Rework with 3mm E3D V5 (Geared Direct)" : 
+                $printer->bedX = 20;
+                $printer->bedY = 20;
+                $printer->bedZ = 20;
+                $printer->nozzleSize = 0.4;
+                $printer->filamentSize = 1.75;
+                $printer->supplierId = 22;
+                break;
+            default :
+                $printer->supplierId = 20;                
+        }
+        
+        $printer->name = $data[self::PRINTER_USED_FOR_TEST];
+        $printer->styleId = 1;
+        
+        $printer->printerId = DAOFactory::getPrinterDAO()->insert($printer);
+
+        return $printer;
+    }
+    
     
     /**
      * @param unknown $data

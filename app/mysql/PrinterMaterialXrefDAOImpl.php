@@ -114,6 +114,16 @@ class PrinterMaterialXrefDAOImpl implements PrinterMaterialXrefDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function queryByIds($materialId, $printerId) {
+	    $sql = 'SELECT * FROM printer_material_xref WHERE printer_id = ? and material_id = ?';
+	    $sqlQuery = new SqlQuery($sql);
+	    $sqlQuery->setNumber($printerId);
+	    $sqlQuery->setNumber($materialId);
+	     
+	    return $this->getRow($sqlQuery);
+	     
+	}
+	
 	public function queryByPrinterId($value){
 		$sql = 'SELECT * FROM printer_material_xref WHERE printer_id = ?';
 		$sqlQuery = new SqlQuery($sql);

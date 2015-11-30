@@ -23,6 +23,9 @@
         public $layerMax;
         public $layerMin;
         public $printSurface;
-		
+        
+        public $nozzleSize;
+        
+        public $filamentSize;		
 	}
 ?>

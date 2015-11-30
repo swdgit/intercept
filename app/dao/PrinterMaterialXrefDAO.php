@@ -55,7 +55,9 @@ interface PrinterMaterialXrefDAO{
 	 * Delete all rows
 	 */
 	public function clean();
-
+	
+	public function queryByIds($materialId, $printerId);
+	
     public function queryByPrinterId($value);
 
     public function queryByMaterialId($value);

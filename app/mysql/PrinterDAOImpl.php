@@ -68,7 +68,7 @@ class PrinterDAOImpl implements PrinterDAO{
  	 * @param PrinterDAOImpl printer
  	 */
 	public function insert($printer){
-		$sql = 'INSERT INTO printer (supplier_id, style_id, name, bed_x, bed_y, bed_z, product_url, discontinued, model_number, print_speed_max, print_speed_max_height, layer_max, layer_min, print_surface) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO printer (supplier_id, style_id, name, bed_x, bed_y, bed_z, product_url, discontinued, model_number, print_speed_max, print_speed_max_height, layer_max, layer_min, print_surface, nozzle_size, filament_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
         $sqlQuery->setNumber($printer->supplierId);
@@ -85,7 +85,9 @@ class PrinterDAOImpl implements PrinterDAO{
         $sqlQuery->set($printer->layerMax);
         $sqlQuery->set($printer->layerMin);
         $sqlQuery->set($printer->printSurface);
-
+        $sqlQuery->setNumber($printer->nozzleSize);
+        $sqlQuery->setNumber($printer->filamentSize);
+        
 		$id = $this->executeInsert($sqlQuery);	
 		$printer->printerId = $id;
 		return $id;
@@ -97,7 +99,7 @@ class PrinterDAOImpl implements PrinterDAO{
  	 * @param PrinterDAOImpl printer
  	 */
 	public function update($printer){
-		$sql = 'UPDATE printer SET supplier_id = ?, style_id = ?, name = ?, bed_x = ?, bed_y = ?, bed_z = ?, product_url = ?, discontinued = ?, model_number = ?, print_speed_max = ?, print_speed_max_height = ?, layer_max = ?, layer_min = ?, print_surface = ? WHERE printer_id = ?';
+		$sql = 'UPDATE printer SET supplier_id = ?, style_id = ?, name = ?, bed_x = ?, bed_y = ?, bed_z = ?, product_url = ?, discontinued = ?, model_number = ?, print_speed_max = ?, print_speed_max_height = ?, layer_max = ?, layer_min = ?, print_surface = ?, nozzle_size = ?, filament_size = ? WHERE printer_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
         $sqlQuery->setNumber($printer->supplierId);
@@ -114,7 +116,9 @@ class PrinterDAOImpl implements PrinterDAO{
         $sqlQuery->set($printer->layerMax);
         $sqlQuery->set($printer->layerMin);
         $sqlQuery->set($printer->printSurface);
-
+        $sqlQuery->setNumber($printer->nozzleSize);
+        $sqlQuery->setNumber($printer->filamentSize);
+        
 		$sqlQuery->setNumber($printer->printerId);
 		return $this->executeUpdate($sqlQuery);
 	}
@@ -358,7 +362,9 @@ class PrinterDAOImpl implements PrinterDAO{
         $printer->layerMax = $row['layer_max'];
         $printer->layerMin = $row['layer_min'];
         $printer->printSurface = $row['print_surface'];
-
+        $printer->nozzleSize = $row['nozzle_size'];
+        $printer->filamentSize = $row['filament_size'];
+        
 		return $printer;
 	}
 	
