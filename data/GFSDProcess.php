@@ -136,7 +136,7 @@ class GFSDProcess {
         echo ' printer ' . $printer->name;
         $material = DAOFactory::getMaterialDAO()->queryByType($data[self::FILAMENT_TYPE]);
         $printers  = DAOFactory::getPrinterDAO()->queryByName($data[self::PRINTER_USED_FOR_TEST]);
-        $existing = DAOFactory::getPrinterMaterialXrefDAO()->queryByIds($material->materialId, $printer->printerId);
+
         
         $printer;
                 
@@ -145,6 +145,8 @@ class GFSDProcess {
         } else {
             $printer = $printers[0];
         }
+        
+        $existing = DAOFactory::getPrinterMaterialXrefDAO()->queryByIds($material->materialId, $printer->printerId);
         
         // assign material
         // assign printer      
